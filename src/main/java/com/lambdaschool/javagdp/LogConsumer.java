@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class LogConsumer {
-    @RabbitListener(queues = JavaGdpApplication.QUEUE_NAME)
+    @RabbitListener(queues = JavaGdpApplication.QUEUE_NAME_LOG)
     public void consumeMessage(final Message cm) {
         log.info("Received Message: {}", cm.toString());
     }
