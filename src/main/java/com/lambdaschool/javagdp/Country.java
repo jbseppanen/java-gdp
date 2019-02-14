@@ -11,14 +11,14 @@ import javax.persistence.Id;
 public class Country {
 
     private @Id @GeneratedValue Long id;
-    private String country;//Would be preferred to json file to have name tag be "name" not "country".
+    private String name;
     private Long gdp;
 
     public Country() {
     }
 
-    public Country(String country, Long gdp) {
-        this.country = country;
+    public Country(String name, Long gdp) {
+        this.name = name;
         this.gdp = gdp;
     }
 }

@@ -4,14 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @Slf4j
@@ -29,7 +24,7 @@ public class CountryController {
     @GetMapping("/names")
     public List<Country> getAllSortedAlphabetically() {
         ArrayList<Country> countries = (ArrayList<Country>) countryRepo.findAll();
-        countries.sort((e1, e2) -> e1.getCountry().compareToIgnoreCase(e2.getCountry()));
+        countries.sort((e1, e2) -> e1.getName().compareToIgnoreCase(e2.getName()));
         return countries;
     }
 
@@ -52,6 +47,11 @@ public class CountryController {
         node.put("Total", total);
         return node;
     }
+
+/*    @GetMapping("/gdp/{country name}")
+    public Country getCountryByName(@PathVariable String countryName) {
+        Country country = countryRepo.findOne("name",countryName);
+    }*/
 
 
     @PostMapping("/names")
