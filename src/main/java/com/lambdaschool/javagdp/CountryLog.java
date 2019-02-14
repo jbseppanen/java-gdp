@@ -1,15 +1,17 @@
 package com.lambdaschool.javagdp;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Data
 public class CountryLog implements Serializable {
 
     private final String text;
     private final String formattedDate;
-
     public CountryLog(String text) {
         this.text = text;
         Date date = new Date();

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LogConsumer {
     @RabbitListener(queues = JavaGdpApplication.QUEUE_NAME_LOG)
-    public void consumeMessage(final Message cm) {
-        log.info("Received Message: {}", cm.toString());
+    public void consumeMessage(final Message message) {
+        log.info("Received Message: {}", message.toString());
     }
 }

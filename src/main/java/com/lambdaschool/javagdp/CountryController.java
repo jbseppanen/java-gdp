@@ -31,7 +31,7 @@ public class CountryController {
     @GetMapping("/economy")
     public List<Country> getAllSortedByEconomy() {
         ArrayList<Country> countries = (ArrayList<Country>) countryRepo.findAll();
-        countries.sort((e1, e2)-> e2.getGdp().compareTo(e1.getGdp()));
+        countries.sort((e1, e2) -> e2.getGdp().compareTo(e1.getGdp()));
         return countries;
     }
 
@@ -39,8 +39,8 @@ public class CountryController {
     public ObjectNode getTotalGdp() {
         ArrayList<Country> countries = (ArrayList<Country>) countryRepo.findAll();
         Long total = 0L;
-        for (Country country:countries) {
-            total+=country.getGdp();
+        for (Country country : countries) {
+            total += country.getGdp();
         }
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode node = mapper.createObjectNode();
@@ -48,10 +48,14 @@ public class CountryController {
         return node;
     }
 
-/*    @GetMapping("/gdp/{country name}")
+    @GetMapping("/gdp/{countryName}")
     public Country getCountryByName(@PathVariable String countryName) {
-        Country country = countryRepo.findOne("name",countryName);
-    }*/
+        Country country = countryRepo.findCountryByNameIgnoreCase(countryName);
+        CountryLog message =  new CountryLog("Checked Country: " + country.getName());
+        rTemplate.convertAndSend(JavaGdpApplication.QUEUE_NAME_LOG, message.toString());
+        log.info("Message sent");
+        return country;
+    }
 
 
     @PostMapping("/names")
