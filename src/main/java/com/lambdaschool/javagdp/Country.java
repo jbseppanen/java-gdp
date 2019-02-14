@@ -1,5 +1,6 @@
 package com.lambdaschool.javagdp;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -10,7 +11,9 @@ import javax.persistence.Id;
 @Entity
 public class Country {
 
-    private @Id @GeneratedValue Long id;
+    private @Id
+    @GeneratedValue
+    Long id;
     private String name;
     private Long gdp;
 
@@ -20,5 +23,10 @@ public class Country {
     public Country(String name, Long gdp) {
         this.name = name;
         this.gdp = gdp;
+    }
+
+    @JsonProperty("country")
+    public String getName() {
+        return name;
     }
 }
